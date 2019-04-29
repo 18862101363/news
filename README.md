@@ -10,7 +10,7 @@ News Scraper Service Problem statement:
 
 实现说明：
 
-1.  SpringBoot 项目， 使用 spring-boot-starter-data-elasticsearch 将数据存储在 ElasticSearch 以实现全文检索 。
+1.  SpringBoot 项目， 使用 spring-boot-starter-data-elasticsearch 将数据存储在 ElasticSearch 以实现全文检索 (请先安装好 ElasticSearch 服务) 。
 
 2.  详见 com.news.schedule.ScrapNewsDaily 类每日定时获取一次数据存储到 ElasticSearch 中 。 
 
@@ -20,4 +20,4 @@ News Scraper Service Problem statement:
       c. Search articles based on article title and description     详见对应 REST API news/listByTitleORDescription .
 
 
-
+if you have any questions, please do not hesitate to contact me through sending me email:  dzd_shanghai@sina.com
