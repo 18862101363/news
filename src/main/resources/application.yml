@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: news
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes:  10.111.6.2:9300,10.111.6.2:9301,10.111.6.2:9302
+      properties:
+        transport:
+          tcp:
+            connect_timeout:  120s
+
+server:
+  port: 8080
