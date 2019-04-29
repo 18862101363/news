@@ -2,14 +2,12 @@ package com.news.schedule;
 
 import com.news.constant.WebSiteConst;
 import com.news.entity.News;
-import com.news.repository.NewsRepository;
 import com.news.service.NewsService;
 import com.news.util.ScrapUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,7 +17,6 @@ import org.springframework.util.CollectionUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.stream.Collectors;
 
