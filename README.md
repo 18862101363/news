@@ -10,16 +10,19 @@ News Scraper Service Problem statement:
 
 Implementation instructions:
 
-1. IDEA, JDK1.8, SpringBoot-2.X project, use spring-boot-starter-data-elasticsearch to store data in ElasticSearch for full-text search 
+1. Development environment: IDEA, JDK1.8, SpringBoot-2.X, ElasticSearch-5.6.2 .   
+
+
+2. Use spring-boot-starter-data-elasticsearch to store data in ElasticSearch for full-text search 
         a). please install ElasticSearch service first, I use ElasticSearch-5.6.2. 
             Also I attached the elasticsearch.yml file for ElasticSearch installation configuration. 
             and ElasticSearch should not be installed and runned as root user. 
 
-2. For details, see the com.news.schedule.ScrapNewsDaily class which daily import data store from China Daily website to ElasticSearch 
+3. For details, see the com.news.schedule.ScrapNewsDaily class which daily import data store from China Daily website to ElasticSearch 
         a). For test, at the beginning you can make it start every 30 sec and after data imported, 
             then stop the application and comment @Scheduled out.
 
-3. Function correspondence:
+4. Function correspondence:
        a. Search available authors:
                 See the corresponding REST API news/listAuthors for details.
                 
