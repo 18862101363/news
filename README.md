@@ -10,7 +10,7 @@ News Scraper Service Problem statement:
 
 Implementation instructions:
 
-1. SpringBoot-2.X project, use spring-boot-starter-data-elasticsearch to store data in ElasticSearch for full-text search 
+1. IDEA, JDK1.8, SpringBoot-2.X project, use spring-boot-starter-data-elasticsearch to store data in ElasticSearch for full-text search 
         a). please install ElasticSearch service first, I use ElasticSearch-5.6.2. 
             Also I attached the elasticsearch.yml file for ElasticSearch installation configuration. 
             and ElasticSearch should not be installed and runned as root user. 
