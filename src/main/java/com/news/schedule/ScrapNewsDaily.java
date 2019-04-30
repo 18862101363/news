@@ -1,7 +1,7 @@
 package com.news.schedule;
 
 import com.news.constant.WebSiteConst;
-import com.news.entity.News;
+import com.news.document.News;
 import com.news.service.NewsService;
 import com.news.util.ScrapUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +33,10 @@ public class ScrapNewsDaily {
 
 
     /**
-     * 每天定时获取数据到 ElasticSearch
+     * daily import data into ElasticSearch
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/15 * * * * ?")   // For loading data into ElasticSearch at the beginnig
+    @Scheduled(cron = "* 1 0 * * ?")
     public void screpNews() {
         try {
             Date today = new Date();
@@ -52,14 +53,9 @@ public class ScrapNewsDaily {
                 // 单独访问每个 news url 地址，获取数据组装成 Java News 对象
                 newss.add(getNews(newsUrl));
             }
-            System.out.println("");
 
             // 保存数据到 ElasticSearch news 中
-            Iterable<News> newss1 = newsService.saveAll(newss);
-
-//            for (News news:newss1){
-//                System.out.println(news.getId());
-//            }
+            newsService.saveAll(newss);
 
         } catch (Exception e) {
             log.error("exception message={}", e.getMessage());
@@ -94,21 +90,39 @@ public class ScrapNewsDaily {
      */
     private News getNews(String newsUrl) throws Exception {
         News news = new News();
+        // set News Object field [[url]] value
+        news.setUrl(newsUrl);
+
+        // set News Object field [[title]] value
         Document document = ScrapUtil.getRespDocument(newsUrl);
         Elements elements = document.getElementsByClass(WebSiteConst.NEWS_TITLE_SELECTOR);
         if (!CollectionUtils.isEmpty(elements))
-            news.setTitle(elements.get(0).text());
-
-        elements = document.getElementsByClass(WebSiteConst.NEWS_AUTHOR_SELECTOR);
-        if (!CollectionUtils.isEmpty(elements))
             news.setTitle(elements.get(0)
-                    .text()
-                    .split(WebSiteConst.NEWS_AUTHOR_SEPERATOR)[0]
-                    .trim());
+                    .child(0)
+                    .text());
 
+        // set News Object field [[author]] value
+        // cause the news author text obtained may be ambiguous, we need to do something specifically.
+        // eg. By Ma Zhiping in Haikou | China Daily | Updated: 2019-04-30 07:03
+        elements = document.getElementsByClass(WebSiteConst.NEWS_AUTHOR_SELECTOR);
+        if (!CollectionUtils.isEmpty(elements)) {
+            String author = WebSiteConst.NEWS_AUTHOR_CHINADAILY;
+            String text = elements.get(0).text();
+            if (!text.startsWith(WebSiteConst.NEWS_AUTHOR_CHINADAILY)) {
+                if (text.contains(WebSiteConst.NEWS_AUTHOR_SUBSUF_IN))
+                    author = text.substring(text.indexOf(WebSiteConst.NEWS_AUTHOR_SUBPRE) + WebSiteConst.NEWS_AUTHOR_SUBPRE.length(),
+                            text.indexOf(WebSiteConst.NEWS_AUTHOR_SUBSUF_IN));
+                else
+                    author = text.substring(text.indexOf(WebSiteConst.NEWS_AUTHOR_SUBPRE) + WebSiteConst.NEWS_AUTHOR_SUBPRE.length(),
+                            text.indexOf(WebSiteConst.NEWS_AUTHOR_SUBSUF));
+            }
+            news.setAuthor(author);
+        }
+
+        // set News Object field [[description]] value
         Element element = document.getElementById(WebSiteConst.NEWS_DESCRIPTION_SELECTOR);
-        if (element!=null)
-            news.setDescription(element.text());
+        if (element != null)
+            news.setDescription(element.html());
 
         return news;
     }

@@ -1,7 +1,6 @@
 package com.news.controller;
 
 import com.news.constant.WebSiteConst;
-import com.news.entity.News;
 import com.news.service.NewsService;
 import com.news.service.impl.NewsServiceImpl;
 import com.news.util.RespUtil;
@@ -9,12 +8,14 @@ import com.news.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  * Created by dong_zhengdong on 2019/4/29.
@@ -34,18 +35,15 @@ public class NewsController {
      */
     @GetMapping("listAuthors")
     public ResponseVO listAuthors() {
-        List<String> authors = null;
         try {
-            authors = ((NewsServiceImpl) newsService).listAllAuthors();
+            return RespUtil.success(((NewsServiceImpl) newsService)
+                    .listAllAuthors());
         } catch (Exception e) {
             log.error("exception message = {}", e.getMessage());
             e.printStackTrace();
             return RespUtil.error(e.getMessage());
         }
-
-        return RespUtil.success(authors);
     }
-
 
     /**
      * Search newss based on news author name
@@ -56,17 +54,15 @@ public class NewsController {
     public ResponseVO listByAuthor(@RequestParam("author") String author,
                                    @RequestParam(value = "page", required = false, defaultValue = WebSiteConst.FIRST_PAGE) String page,
                                    @RequestParam(value = "pageSize", required = false, defaultValue = WebSiteConst.PAGE_SIZE) String pageSize) {
-        List<News> newss = null;
         try {
             PageRequest pageRequest = new PageRequest(Integer.valueOf(page), Integer.valueOf(pageSize));
-            newss = newsService.listByAuthor(author, pageRequest);
+            return RespUtil.success(newsService.
+                    listByAuthor(author, pageRequest));
         } catch (Exception e) {
             log.error("exception message = {}", e.getMessage());
             e.printStackTrace();
             return RespUtil.error(e.getMessage());
         }
-
-        return RespUtil.success(newss);
     }
 
 
@@ -76,22 +72,24 @@ public class NewsController {
      * @return
      */
     @GetMapping("listByTitleORDescription")
-    public ResponseVO listByTitleORDescription(@RequestParam("title") String title,
-                                               @RequestParam("description") String description,
+    public ResponseVO listByTitleORDescription(@RequestParam(value = "title", required = false, defaultValue = WebSiteConst.NONE_PARAM) String title,
+                                               @RequestParam(value = "description", required = false, defaultValue = WebSiteConst.NONE_PARAM) String description,
                                                @RequestParam(value = "page", required = false, defaultValue = WebSiteConst.FIRST_PAGE) String page,
                                                @RequestParam(value = "pageSize", required = false, defaultValue = WebSiteConst.PAGE_SIZE) String pageSize) {
-        List<News> newss = null;
+        if (WebSiteConst.NONE_PARAM.equals(title) && WebSiteConst.NONE_PARAM.equals(description))
+            return RespUtil.paramMissing("either parameter title or description is required");
         try {
             PageRequest pageRequest = new PageRequest(Integer.valueOf(page), Integer.valueOf(pageSize));
-            newss = newsService.listByTitleORDescription(title, description, pageRequest);
+            return RespUtil.success(newsService
+                    .listByTitleORDescription(title, description, pageRequest));
         } catch (Exception e) {
             log.error("exception message = {}", e.getMessage());
             e.printStackTrace();
             return RespUtil.error(e.getMessage());
         }
-
-        return RespUtil.success(newss);
     }
+
+
 
 
 }

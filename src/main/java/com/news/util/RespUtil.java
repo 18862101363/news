@@ -11,7 +11,7 @@ public class RespUtil {
 
 
     /**
-     *  返回成功响应对象
+     *  return gengeral success response VO
      * @param data
      * @return
      */
@@ -25,7 +25,7 @@ public class RespUtil {
 
 
     /**
-     *  返回成功响应对象
+     *  return gengeral error response VO
      * @param data
      * @return
      */
@@ -37,7 +37,18 @@ public class RespUtil {
         return responseVO ;
     }
 
-
+    /**
+     *  return param binding missing response VO
+     * @param data
+     * @return
+     */
+    public static ResponseVO paramMissing(Object data){
+        ResponseVO responseVO = new ResponseVO();
+        responseVO.setCode(ResponseCode.PARAM_ERROR.getCode());
+        responseVO.setMessage(ResponseCode.PARAM_ERROR.getMessage());
+        responseVO.setData(data);
+        return responseVO ;
+    }
 
 
 }

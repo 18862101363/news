@@ -9,8 +9,8 @@ import lombok.Getter;
 public enum ResponseCode {
 
     SUCCESS(200, "success"),
-    ERROR(500, "error");
-
+    ERROR(500, "error"),
+    PARAM_ERROR(501,"param error");
 
     /**
      * 响应码

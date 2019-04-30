@@ -1,10 +1,10 @@
 package com.news.service;
 
-import com.news.entity.News;
+import com.news.document.News;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dong_zhengdong on 2019/4/29.
@@ -16,9 +16,9 @@ public interface NewsService {
 
     Iterable<News> listAll() throws Exception;
 
-    List<News> listByAuthor(String author, PageRequest page) throws Exception;
+    Map<String, Object> listByAuthor(String author, PageRequest page) throws Exception;
 
-    List<News> listByTitleORDescription(String title, String description, PageRequest page) throws Exception;
+    Map<String, Object> listByTitleORDescription(String title, String description, PageRequest page) throws Exception;
 
 
 }

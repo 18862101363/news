@@ -8,6 +8,8 @@ import org.jsoup.nodes.Document;
 
 /**
  * Created by dong_zhengdong on 2019/4/29.
+ *
+ * for scraping information from China Daily website
  */
 public class ScrapUtil {
 

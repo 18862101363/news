@@ -1,4 +1,4 @@
-package com.news.entity;
+package com.news.document;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -18,21 +18,25 @@ public class News {
     private String id;
 
     /**
-     * 作者名
+     * news author
      */
     private String author;
 
     /**
-     * 新闻标题
+     * news title
      */
     private String title;
 
     /**
-     * 新闻内容
+     * news content
      */
     private String description;
 
 
+    /**
+     * the url address accessed in China Daliy website
+     */
+    private String url;
 
 
 }

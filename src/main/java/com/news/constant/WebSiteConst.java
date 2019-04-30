@@ -6,59 +6,67 @@ package com.news.constant;
 public class WebSiteConst {
 
     /**
-     *  china daily 网站主页 url 前缀
+     *   china daily website main url address preffix
      */
     public static final String CHINA_DAILY_URL_PREFIX = "http://www.chinadaily.com.cn/cndy/";
 
     /**
-     *  china daily 网站主页 url 后缀
+     *  china daily website main url address suffix
      */
     public static final String CHINA_DAILY_URL_SUFFIX = "/index1.html";
 
     /**
-     *  从浏览器拷贝的 user_agent 信息
+     *  user_agent information obtained from Chrome Explorer
      */
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36";
 
     /**
-     *  jsoup 连接超时设置
+     *  jsoup connection timeout setting
      */
     public static final int TIMEOUT = 6000;
 
 
     /**
-     *  从 china daily 网站主页获取 news url 的 html 元素选择器
+     *  the html selector for selecting every news url address from China Daily Homepage
      */
     public static final String NEWS_URL_SELECTOR = "HREF";
 
     /**
-     *  从 china daily 网站每个 news 页面获取该 news 标题信息的 html 元素选择器
+     *  the html selector for selecting news title information from China Daily every single news web page
      */
     public static final String NEWS_TITLE_SELECTOR = "lft_art";
 
     /**
-     *  从 china daily 网站每个 news 页面获取该 news 作者信息的 html 元素选择器
+     *  the html selector for selecting news author information from China Daily every single news web page
      */
     public static final String NEWS_AUTHOR_SELECTOR = "info_l";
 
     /**
-     *  从 china daily 网站每个 news 页面获取该 news 作者信息的 html 元素内容的分隔符，元素内容如： By Li Fusheng | China Daily | Updated: 2019-04-29 07:26
+     *  cause the news author text obtained may be ambiguous, we need to do something specifically.
+     *  eg. By Ma Zhiping in Haikou | China Daily | Updated: 2019-04-30 07:03
      */
-    public static final String NEWS_AUTHOR_SEPERATOR = "|";
+    public static final String NEWS_AUTHOR_SUBPRE = "By ";//s = s.substring(s.indexOf("By ") + "By ".length(), s.indexOf(" | "));
+    public static final String NEWS_AUTHOR_SUBSUF_IN = " in ";//s = s.substring(s.indexOf("By ") + "By ".length(), s.indexOf(" | "));
+    public static final String NEWS_AUTHOR_SUBSUF = " | ";
+    public static final String NEWS_AUTHOR_CHINADAILY = "China Daily";
 
     /**
-     *  从 china daily 网站每个 news 页面获取该 news 内容信息的 html 元素选择器
+     *  the html selector for selecting news description information from China Daily every single news web page
      */
     public static final String NEWS_DESCRIPTION_SELECTOR = "Content";
 
     /**
-     * 分页查询的默认起始页码
+     * default page number for pagination
      */
     public static final String FIRST_PAGE = "0";
 
     /**
-     * 分页查询的默认每页数据量
+     * default page size for pagination
      */
     public static final String PAGE_SIZE = "10";
 
+    /**
+     * default empty parameter value
+     */
+    public static final String NONE_PARAM = "NONE";
 }

@@ -8,16 +8,26 @@ News Scraper Service Problem statement:
 
 
 
-实现说明：
+Implementation instructions:
 
-1.  SpringBoot 项目， 使用 spring-boot-starter-data-elasticsearch 将数据存储在 ElasticSearch 以实现全文检索 (请先安装好 ElasticSearch 服务) 。
+1. SpringBoot-2.X project, use spring-boot-starter-data-elasticsearch to store data in ElasticSearch for full-text search 
+        a). please install ElasticSearch service first, I use ElasticSearch-5.6.2. 
+            Also I attached the elasticsearch.yml file for ElasticSearch installation configuration. 
 
-2.  详见 com.news.schedule.ScrapNewsDaily 类每日定时获取一次数据存储到 ElasticSearch 中 。 
+2. For details, see the com.news.schedule.ScrapNewsDaily class which daily import data store from China Daily website to ElasticSearch 
+        a). For test, at the beginning you can make it start every 30 sec and after data imported, 
+            then stop the application and comment @Scheduled out.
 
-3.  功能对应：
-      a. Search available authors                                   详见对应 REST API news/listAuthors . 
-      b. Search articles based on author name                       详见对应 REST API news/listByAuthor .
-      c. Search articles based on article title and description     详见对应 REST API news/listByTitleORDescription .
+3. Function correspondence:
+       a. Search available authors:
+                See the corresponding REST API news/listAuthors for details.
+                
+       b. Search articles based on author name:
+                See the corresponding REST API news/listByAuthor for details.
+                
+       c. Search articles based on article title and description:
+                See the corresponding REST API news/listByTitleORDescription for details.
+
 
 
 if you have any questions, please do not hesitate to contact me through sending me email:  dzd_shanghai@sina.com

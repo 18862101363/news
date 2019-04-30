@@ -1,14 +1,19 @@
 spring:
   application:
     name: news
+  mvc:
+      view:
+        prefix: /
+        suffix: .jsp
   data:
     elasticsearch:
-      cluster-name: elasticsearch       #es的名称
-      cluster-nodes:  10.111.6.2:9300,10.111.6.2:9301,10.111.6.2:9302   # 集群节点服务地址，用逗号分隔
+      cluster-name: NewsCluster    # ElasticSearch cluster name , replace with your ES cluster name
+      cluster-nodes:  10.80.121.35:9300   # ElasticSearch cluster nodes address , replace with your ES installation address
       properties:
         transport:
           tcp:
-            connect_timeout:  120s    # 设置连接超时时间
+            connect_timeout:  120s
+
 
 server:
-  port: 8080
+  port: 8888
