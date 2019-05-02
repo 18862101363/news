@@ -24,13 +24,13 @@ Implementation instructions:
 
 4. Function correspondence:
        a. Search available authors:
-                See the corresponding REST API news/listAuthors for details.
+                See the corresponding REST API com.news.controller.NewsController news/listAuthors for details.
                 
        b. Search articles based on author name:
-                See the corresponding REST API news/listByAuthor for details.
+                See the corresponding REST API com.news.controller.NewsController news/listByAuthor for details.
                 
        c. Search articles based on article title and description:
-                See the corresponding REST API news/listByTitleORDescription for details.
+                See the corresponding REST API com.news.controller.NewsController news/listByTitleORDescription for details.
 
 
 
